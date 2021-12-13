@@ -1,0 +1,53 @@
+<app-adminnavbar></app-adminnavbar>
+
+<body style="margin-bottom: 62px; margin-top: 40px;">
+    <div class="container">
+        <br><br>
+        <div class="afterlogin" *ngIf="isLogedIn()">
+            <div *ngIf="admin" class="table-responsive-md " id="">
+
+
+
+                <table class="table table-borderles table-hover" id="excel-table" style="margin-top: 10px;">
+                    <thead>
+                        <tr>
+                            <th>User_Id</th>
+                            <th>Date_Time</th>
+                            <th>Amount</th>
+                            <th>Add/Withdraw</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr *ngFor="let elements of admin | async ">
+
+                            <td>{{elements.userid}}</td>
+                            <td>{{elements.dateTime}}</td>
+                            <td>{{elements.amount}}</td>
+                            <td>{{elements.type}}</td>
+                            <td>{{elements.status}}</td>
+
+                            <td><button type="submit" class="btn btn-outline-danger"
+                                 (click)="approvefund(elements.sno)"  >Approve </button></td>
+                            <td><button type="submit" class="btn btn-outline-success"
+                                (click)="rejectfund(elements.sno)"    >Reject </button></td>
+
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+
+
+
+            <p *ngIf="!admin" class="noData">
+                Nothing available
+            </p>
+        </div>
+    </div>
+</body>
+<app-footer></app-footer>

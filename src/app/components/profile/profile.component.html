@@ -1,0 +1,137 @@
+
+<div class="container" style="padding-bottom: 100px;">
+    <div class="row">
+        <div class="col-sm-6">
+            <br><br>
+            <br>
+            <div class="container emp-profile" style="background: linear-gradient(#bdc3c7,#2c3e50);border-radius: 20px;">
+                <form method="post">
+                    <div *ngIf="userDetails" class="row">
+
+                        <div class="col-md-4">
+
+                            <div *ngIf="userDetails[0].name!='Ram Sankar R'" class="user-img">
+                                <img src="assets/images/user.png" alt="" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="profile-head">
+                                <h5 style="margin-left: 0;">
+                                    Hii {{userDetails[0].name}}
+                                </h5>
+                                <br>
+
+                                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home"
+                                            role="tab" aria-controls="home" aria-selected="true">About</a>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+
+                        </div>
+                        <div class="col-md-8">
+                            <div class="tab-content profile-tab" id="myTabContent">
+                                <div *ngIf="userDetails" class="tab-pane fade show active" id="home" role="tabpanel"
+                                    aria-labelledby="home-tab">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label>Amount Left</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p>{{userDetails[0].amount_left}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label>Name</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p>{{userDetails[0].name}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label>Email</label>
+                                        </div>
+                                        <div class="col-md-6" >
+                                            <p>{{userDetails[0].email}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label>Phone</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p>{{userDetails[0].phone}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="container">
+                                        <div *ngIf=switchToPage>
+                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="number"
+                                                style="width: 120px;" name="amount" minlength="5" maxlength="5"
+                                                [(ngModel)]=amount placeholder="Enter Amount">
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <button style="border-radius: 20px; width: 100px; background-color: black;" type="button"
+                                                class="btn btn-dark sell" (click)="switchTo()">Add Fund</button>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <button style="border-radius: 20px; width: 100px; background-color: black; " type="button"
+                                                class="btn btn-dark sell" (click)="switchTowi()">Withdraw</button>
+                                        </div>
+
+                                    </div> <br>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div *ngIf="admin"  id="" class="col-6">
+            <h6 style="margin-left: 200px; font-family: Cursive; font-size: 30px;  text-shadow: 2px 2px red;margin-top: 0;">Fund  Request</h6>
+         <div class="my-custom-scrollbar">
+            <table class="table">
+                 <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">TicketNo</th>
+                        <th scope="col">Amount</th>
+                        <th scope="col">DateTime</th>
+                        <th scope="col">Type</th>
+                        <th scope="col">Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let elements of admin | async " style="height: 2%;">
+
+                        <td>{{elements.sno}}</td>
+                        <td>{{elements.amount}}</td>
+                        <td>{{elements.dateTime}}</td>
+                        <td>{{elements.type}}</td>
+                        <td>{{elements.status}}</td>
+                    </tr>
+                </tbody>
+              </table>
+            </div>
+        </div>
+        <p *ngIf="!admin" class="noData">
+            Nothing available
+        </p>
+    
+    <app-footer></app-footer>
+  </div>
+</div>

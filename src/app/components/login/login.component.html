@@ -1,0 +1,234 @@
+<div class="background" *ngIf="showImage">
+  <div class="containerside">
+    <div *ngIf="switchToLoginPage" class="login bgimg">
+      <form (ngSubmit)="checkLogin(mail, pass)">                                             
+        <div class="card container containerLogin">
+          <div class="formElements">
+            <div class="mailId">
+              <span class="formicon"><img src="assets/images/login.png" width="70" height="70"
+                  style="margin-left: 50px;" /></span>
+              <span class="formtagline">
+                <h5 style="text-align: center">USER LOGIN</h5>
+              </span>
+              <br />
+              <div *ngIf="invalidLogin" class="text-danger">
+                {{ errorMessage }}
+              </div>
+              <label>User Name</label>
+              <input type="email" required class="form-control" name="mailid" [(ngModel)]="mailid" #mail="ngModel"
+                minlength="3" email  email placeholder="UserName..."/>
+
+              <div *ngIf="mail.invalid;" class="text-danger warningMessage">
+                <div *ngIf="mail.errors.minlength">
+                  Minimum 3 character required
+                </div>
+                <div *ngIf="mail.errors.email && !mail.errors.minlength">
+                  Enter a valid Mail ID
+                </div>
+              </div>
+            </div>
+
+            <div class="password">
+              <br /><label>Password</label>
+              <input type="password" class="form-control" name="password" [(ngModel)]="password" #pass="ngModel"
+                required minlength="3" placeholder="Password..." />
+
+              <div *ngIf="pass.invalid" class="text-danger warningMessage">
+                <div *ngIf="pass.errors.minlength">
+                  Minimum 3 character required
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="btn-wrapper text-center">
+
+            <a href="https://github.com/login" class="btn btn-neutral btn-icon">
+              <img src="https://img.icons8.com/material-outlined/24/000000/github.png" />
+              <span class="btn-inner--text">Github</span>
+            </a>
+
+            <a class="btn btn-neutral btn-icon" (click)="signInHandler()">
+
+              <img src="https://img.icons8.com/color/30/000000/google-logo.png" alt="google" />
+              <span> Google</span>
+
+            </a>
+          </div>
+
+          <style>
+            #button2 {
+               background-color: white; 
+                 color: black; 
+               border: 2px solid #008CBA;
+                }
+
+             #button2:hover {
+              background-color: blue;
+               color: white;
+             }
+          </style>
+          <div class="btncheck">
+            <button type="submit" [disabled]="checkValidLogin(mail, pass)" class="btn btn-primary" height="300px"
+              width="300px" id="button2" style="margin-left: 30px">
+              Login
+            </button>
+
+            <button type="submit" (click)="switchToRegister()" class="btn btn-primary" height="100px" width="100px"
+            id="button2" style="margin-left: 60px">
+              New User?
+            </button>
+          </div>
+          <button type="submit" (click)="switchToForget()" style="border: none; background-color: white;">
+            Forget Password?
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div id="sect1">
+  <div *ngIf="!switchToLoginPage" class="register bgimg">
+
+    <form (ngSubmit)="registerNewUser()">
+      <div class="card align-items-center container containerRegister">
+        <div class="formElements">
+          <div *ngIf="invalidUser" class="text-danger warningMessage">
+            {{ errorMessage }}
+          </div>
+          <br />
+
+          <div class="mailId" style="margin-top: 1px;">
+            <label>Mail ID</label>
+            <input type="email" required class="form-control" name="mailid" [(ngModel)]="mailid" #mail="ngModel" email
+              placeholder="ex. abc@gmail.com" />
+
+            <div *ngIf="mail.invalid" class="text-danger warningMessage">
+              <div *ngIf="mail.errors.email">Enter a valid Mail ID</div>
+            </div>
+          </div>
+
+          <div class="username" style="margin-top: 5px;">
+            <label>UserName</label>
+            <input type="text" required class="form-control" name="username" [(ngModel)]="username" #user="ngModel"
+              minlength="3" placeholder="UserName" />
+
+            <div *ngIf="user.invalid" class="text-danger warningMessage">
+              <div *ngIf="true && user.errors.minlength">
+                Minimum 3 character required
+              </div>
+            </div>
+          </div>
+
+          <div class="adhar" style="margin-top: 5px;">
+            <label>Phone Number</label>
+            <input type="text" required class="form-control" name="phone" [(ngModel)]="phone" #ph="ngModel"
+              pattern="[0-9]*" minlength="10" maxlength="10" placeholder="ex. 1234-567-890" />
+
+            <div *ngIf="ph.invalid" class="text-danger warningMessage">
+              <div *ngIf="ph.errors.pattern">
+                Phone number should have digits only
+              </div>
+              <div *ngIf="ph.errors.minlength && !ph.errors.pattern">
+                Minimum 10 digits required
+              </div>
+            </div>
+          </div>
+
+          <div class="password" style="margin-top: px;">
+            <label>Password</label>
+            <input type="password" required class="form-control" name="password" [(ngModel)]="password" #pass="ngModel"
+              placeholder="Password..." />
+
+            <div *ngIf="pass.invalid" class="text-danger warningMessage">
+              <div *ngIf="pass.errors.pattern">
+                Password doesn't match the pattern
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <br /><button type="submit" [disabled]="checkValidUser(mail, user, ph, pass)" class="btn btn-primary">
+          Register
+        </button>
+        <p>
+          If you already have an account.
+          <a (click)="switchToLogin()" class="loginButton">Login</a>
+        </p>
+      </div>
+      <!-- <p style="margin-top: 50px;">
+        <app-footer></app-footer></p> -->
+    </form>
+  </div>
+</div>
+
+<div id="sec1" style="margin-top: 1px;">
+  <div *ngIf="switchToForgetpass" class="register bgimg">
+    <form (ngSubmit)="checkLoginone(user, mail, password)">
+      <div class="card align-items-center container containerforget">
+
+        <h5 class="forgetTitle">Forget Your Password?</h5>
+        <div class="formElements">
+          <div *ngIf="invalidLogin" class="text-danger">
+            <br />
+            {{ errorMessage }}<br />
+          </div>
+
+          <div class="username">
+            <br /><label>UserName</label>
+            <div class="forgetInputs">
+              <input type="text" required class="form-control" name="username" [(ngModel)]="username" #user="ngModel"
+                minlength="3" placeholder="Username" />
+            </div>
+
+            <div *ngIf="user.invalid" class="text-danger warningMessage">
+              <div *ngIf="true && user.errors.minlength">
+                Minimum 3 character required
+              </div>
+            </div>
+          </div>
+          <br />
+          <div class="mailId">
+            <label>Mail ID</label>
+            <div class="forgetInputs">
+
+              <input type="email" required class="form-control" name="mailid" [(ngModel)]="mailid" #mail="ngModel"
+                minlength="3" email placeholder="Email" />
+            </div>
+
+            <div *ngIf="mail.invalid" class="text-danger warningMessage">
+              <div *ngIf="mail.errors.minlength">
+                Minimum 3 character required
+              </div>
+              <div *ngIf="mail.errors.email && !mail.errors.minlength">
+                Enter a valid Mail ID
+              </div>
+            </div>
+          </div>
+
+          <div class="password">
+            <br /><label>Enter new Password</label>
+            <div class="forgetInputs">
+
+              <input type="password" class="form-control" name="password" [(ngModel)]="password" #pass="ngModel"
+                required minlength="3" placeholder="Password" />
+            </div>
+
+            <div *ngIf="pass.invalid" class="text-danger warningMessage">
+              <div *ngIf="pass.errors.minlength">
+                Minimum 3 character required
+              </div>
+            </div>
+          </div>
+        </div><br />
+        <div>
+          <button type="submit" [disabled]="checkValidLoginone(user, mail, pass)" class="btn btn-primary">
+            Submit</button>&nbsp;&nbsp;
+          <button (click)="switchToLogin()" class="btn btn-primary">
+            Cancel</button>
+        </div><br /><br />
+
+      </div>
+    </form>
+  </div>
+</div>
