@@ -31,7 +31,7 @@ export class HomeComponent implements OnInit {
   constructor(private router: Router, 
               private getDataservice: GetDataService, 
               private toastr: ToastrService,
-              public loginService:AuthenticationService) {}
+              private loginService:AuthenticationService) {}
               watchList;
   ngOnInit() {
     // const obs$=interval(2000);

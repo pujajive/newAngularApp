@@ -6,7 +6,7 @@
 
       <div class="row">
         <div id="siteInfo">
-          <input class="form-control" type="text" name="name" [(ngModel)]="name" 
+          <input class="form-control" type="text" name="name" [(ngModel)]="name" (ngModelChange)="Search()"
             placeholder="Search" style="margin-top: 10px;  border: 1px solid black;width: 170px;">
         </div>
       </div>

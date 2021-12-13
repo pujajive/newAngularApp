@@ -9,7 +9,7 @@ interface UserResponse {
   providedIn: 'root'
 })
 export class AuthenticationService {
-  baseUrl = "http://localhost:8080/";
+  baseUrl = "https://springbootmysql.azurewebsites.net/";
   url = "";
   constructor(private http: HttpClient) { }
 
